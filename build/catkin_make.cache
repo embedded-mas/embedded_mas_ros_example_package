@@ -1,0 +1,2 @@
+embedded_mas_examples
+-DCATKIN_DEVEL_PREFIX=/media/maiquel/DATA/maiquel/git/embedded_mas_ros_example_package/devel -DCMAKE_INSTALL_PREFIX=/media/maiquel/DATA/maiquel/git/embedded_mas_ros_example_package/install -G Unix Makefiles

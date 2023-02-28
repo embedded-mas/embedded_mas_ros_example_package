@@ -1,0 +1,8 @@
+prefix=/media/maiquel/DATA/maiquel/git/embedded_mas_ros_example_package/install
+
+Name: embedded_mas_examples
+Description: Description of embedded_mas_examples
+Version: 0.0.0
+Cflags: -I${prefix}/include
+Libs: -L${prefix}/lib 
+Requires: 
