@@ -1,1 +1,2 @@
-apt update && apt install lsb-core
+apt install wget
+apt install unzip
