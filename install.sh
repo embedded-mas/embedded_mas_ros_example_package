@@ -3,7 +3,6 @@ apt install unzip
 mkdir catkin_wsp
 cd catkin_wsp
 mkdir src
-cd ..
 catkin_make
 source devel/setup.bash
 
