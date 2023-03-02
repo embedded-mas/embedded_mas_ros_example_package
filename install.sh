@@ -1,3 +1,5 @@
+#!/bin/bash 
+
 apt install wget
 apt install unzip
 mkdir catkin_wsp
