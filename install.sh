@@ -9,4 +9,7 @@ wget https://github.com/embedded-mas/embedded_mas_ros_example_package/raw/master
 unzip src.zip
 catkin_make
 source devel/setup.bash
-rosrun embedded_mas_examples sum_array_server.py
+
+
+# After run this script, ensure that roscore is running and start the example services with the following command:
+# rosrun embedded_mas_examples sum_array_server.py
