@@ -1,6 +1,8 @@
 #!/bin/bash 
 
-apt install unzip
+apt install -y unzip
+apt install -y make
+apt install -y build-essential g++
 mkdir catkin_wsp
 cd catkin_wsp
 wget https://github.com/embedded-mas/embedded_mas_ros_example_package/raw/master/src.zip
