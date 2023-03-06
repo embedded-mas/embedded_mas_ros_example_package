@@ -9,7 +9,7 @@ unzip src.zip -d catkin_wsp
 cd catkin_wsp
 catkin_make
 cd ..
-source catkin_wsp/devel/setup.bash
+. catkin_wsp/devel/setup.bash
 
 
 # After run this script, ensure that roscore is running and start the example services with the following command:
