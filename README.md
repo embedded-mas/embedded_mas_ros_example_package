@@ -13,3 +13,11 @@ chmod +x install.sh
 . /catkin_wsp/devel/setup.bash
 rosrun embedded_mas_examples sum_array_server.py 
 ```
+
+To tese, call the service *sum_array* with the following command:
+```
+rosservice call sum_array "v: [1,2,3,4,5]"
+```
+It is expected to write the following result in the screen:
+```
+sum: 15
