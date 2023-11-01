@@ -5,7 +5,8 @@ from std_msgs.msg import Int32
 import time
 
 previous_time = None
-file_path = '/home/pedro/Git-ROSDevs/ros-devs/ros-devs/examples/Benchmark/Benchmark_logs/file.txt' #change to your actual file path
+#file_path = '/home/pedro/Git-ROSDevs/ros-devs/ros-devs/examples/Benchmark/Benchmark_logs/file.txt' #change to your actual file path
+file_path = 'file.txt' #change to your actual file path
 
 def topic_callback(data):
     global previous_time
