@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-           'time_listener = embedded_mas_examples.time_listener:time_listener',
+           'time_listener = embedded_mas_examples.time_listener:main',
         ],
     },
 )
