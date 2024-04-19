@@ -48,16 +48,19 @@ find_package(catkin REQUIRED COMPONENTS
 ##   * add every package in MSG_DEP_SET to generate_messages(DEPENDENCIES ...)
 
 ## Generate messages in the 'msg' folder
-# add_message_files(
-#   FILES
+add_message_files(
+   FILES
 #   Message1.msg
 #   Message2.msg
-# )
+   Point3d.msg
+   PairOfPoint3d.msg
+ )
 
 ## Generate services in the 'srv' folder
  add_service_files(
    FILES
    SumArray.srv
+   NestedSum.srv
  )
 
 ## Generate actions in the 'action' folder
@@ -71,6 +74,7 @@ find_package(catkin REQUIRED COMPONENTS
  generate_messages(
    DEPENDENCIES
    std_msgs
+   embedded_mas_examples
  )
 
 ################################################
@@ -106,6 +110,7 @@ catkin_package(
 #  INCLUDE_DIRS include
 #  LIBRARIES embedded_mas_examples
 #  CATKIN_DEPENDS roscpp rospy std_msgs
+   CATKIN_DEPENDS message_runtime
 #  DEPENDS system_lib
 )
 
@@ -160,7 +165,7 @@ include_directories(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
  catkin_install_python(PROGRAMS
-   scripts/sum_array_client.py  scripts/sum_array_server.py
+   scripts/sum_array_client.py  scripts/sum_array_server.py scripts/time_listener.py scripts/sum_nested_params_server.py scripts/paper_jason_ros/energy_turtle1.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 

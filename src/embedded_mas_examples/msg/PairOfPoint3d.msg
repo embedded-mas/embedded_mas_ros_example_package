@@ -1,0 +1,2 @@
+embedded_mas_examples/Point3d p1
+embedded_mas_examples/Point3d p2
