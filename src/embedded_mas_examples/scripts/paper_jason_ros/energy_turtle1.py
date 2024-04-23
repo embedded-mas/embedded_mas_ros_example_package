@@ -20,6 +20,7 @@ def consume_energy(req):
     global time_to_wait_min
     global time_to_wait_min
     global energy_decrement_max
+    global energy_turtle1
     
     # Cria o tópico para publicar mensagens de tipo Int32
     publisher1 = rospy.Publisher('/turtle1/energy', Int32, queue_size=10)
