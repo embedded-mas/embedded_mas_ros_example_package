@@ -38,7 +38,7 @@ def consume_energy(req):
 
 
 def consume_energy_server():
-    rospy.init_node('turtlesim_extended')
+    rospy.init_node('turtlesim_extended_turtle2')
     s = rospy.Service('turtle2/consume_energy', Empty, consume_energy)
     rospy.spin()
 
