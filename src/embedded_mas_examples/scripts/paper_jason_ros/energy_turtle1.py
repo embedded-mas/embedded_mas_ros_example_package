@@ -36,7 +36,7 @@ def consume_energy(req):
           publisher1.publish(energy1)
           
        if(energy_turtle2>0):
-          energy1 = int(energy_turtle2 - random.uniform(1,energy_decrement_max))
+          energy2 = int(energy_turtle2 - random.uniform(1,energy_decrement_max))
           print("Current energy 2: ", energy2)
        
           publisher2.publish(energy2)   
