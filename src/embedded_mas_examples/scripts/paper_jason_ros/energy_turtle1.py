@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+# rosparam set /turtlesim/background_r 200
+# rosservice call /clear
+
 from __future__ import print_function
 
 from std_srvs.srv import Empty, EmptyResponse  
@@ -15,6 +18,7 @@ energy_turtle2 = -1
 time_to_wait_min = 1
 time_to_wait_max = 5
 energy_decrement_max = 5
+alarm = 0;
 
 def consume_energy(req):
     global energy
@@ -23,6 +27,7 @@ def consume_energy(req):
     global energy_decrement_max
     global energy_turtle1
     global energy_turtle2
+    global alarm = 0;
     
     # Cria o tópico para publicar mensagens de tipo Int32
     publisher1 = rospy.Publisher('/turtle1/energy', Int32, queue_size=10)
@@ -40,6 +45,30 @@ def consume_energy(req):
           print("Current energy 2: ", energy2)
        
           publisher2.publish(energy2)   
+       
+       
+       
+       if alarm==0:
+          move_to_critical = random.uniform(0, 100)
+          # 5% of chance to move from safe to critical
+          if move_to_critical <= 4: 
+             alarm=1
+          elif if move_to_critical <= 9:
+             alarm=2
+          if alarm > 0:
+             # Set the /turtlesim/background_r parameter to 200
+             rospy.set_param('/turtlesim/background_r', 200)
+
+             # Create a service proxy for the /clear service
+             clear_service = rospy.ServiceProxy('/clear', Empty) 
+             
+             
+             print( "**** CRITICAL *****")
+       else
+          move_to_safe = random.uniform(0, 100)
+          if move_to_safe <= 20 # 20% of chance to move from critical to safe
+          
+          
        
        time_to_wait = random.uniform(time_to_wait_min, time_to_wait_max)
        rospy.sleep(time_to_wait)        
