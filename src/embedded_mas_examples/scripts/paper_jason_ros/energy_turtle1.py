@@ -64,7 +64,7 @@ def consume_energy(req):
              clear_service = rospy.ServiceProxy('/clear', Empty) 
              
              # Montar o comando a ser executado
-             command = f'rosparam set /turtlesim/background_r 255 && rosservice call /clear'
+             command = f'rosparam set /turtlesim/background_r 255 && rosparam set /turtlesim/background_0 86 &&  rosparam set /turtlesim/background_b 0 &&rosservice call /clear'
 
              # Executar o comando de forma não bloqueante
              subprocess.Popen(command, shell=True)
@@ -75,6 +75,7 @@ def consume_energy(req):
           if move_to_safe <= 20: # 20% of chance to move from critical to safe
              alarm = 0
              command = f'rosparam set /turtlesim/background_r 69 && rosparam set /turtlesim/background_g 86 &&  rosparam set /turtlesim/background_b 255 && rosservice call /clear'
+             subprocess.Popen(command, shell=True)
              print( "**** SAFE *****")
           
           
