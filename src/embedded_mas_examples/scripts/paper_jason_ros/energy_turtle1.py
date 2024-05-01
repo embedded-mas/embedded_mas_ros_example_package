@@ -27,7 +27,7 @@ def consume_energy(req):
     global energy_decrement_max
     global energy_turtle1
     global energy_turtle2
-    global alarm = 0;
+    global alarm
     
     # Cria o tópico para publicar mensagens de tipo Int32
     publisher1 = rospy.Publisher('/turtle1/energy', Int32, queue_size=10)
@@ -66,7 +66,9 @@ def consume_energy(req):
              print( "**** CRITICAL *****")
        else
           move_to_safe = random.uniform(0, 100)
-          if move_to_safe <= 20 # 20% of chance to move from critical to safe
+          if move_to_safe <=: 20 # 20% of chance to move from critical to safe
+             alarm = 0
+             print( "**** SAFE *****")
           
           
        
