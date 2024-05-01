@@ -64,9 +64,9 @@ def consume_energy(req):
              
              
              print( "**** CRITICAL *****")
-       else
+       else:
           move_to_safe = random.uniform(0, 100)
-          if move_to_safe <=: 20 # 20% of chance to move from critical to safe
+          if move_to_safe <= 20: # 20% of chance to move from critical to safe
              alarm = 0
              print( "**** SAFE *****")
           
