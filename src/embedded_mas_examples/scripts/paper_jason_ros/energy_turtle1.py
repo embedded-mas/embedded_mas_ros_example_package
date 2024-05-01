@@ -53,7 +53,7 @@ def consume_energy(req):
           # 5% of chance to move from safe to critical
           if move_to_critical <= 4: 
              alarm=1
-          elif if move_to_critical <= 9:
+          elif move_to_critical <= 9:
              alarm=2
           if alarm > 0:
              # Set the /turtlesim/background_r parameter to 200
