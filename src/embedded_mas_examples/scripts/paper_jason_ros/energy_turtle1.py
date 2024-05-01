@@ -10,6 +10,7 @@ from std_msgs.msg import Int32
 import rospy
 import random
 import time
+import subprocess
 
 
 #energy = 100
@@ -62,6 +63,11 @@ def consume_energy(req):
              # Create a service proxy for the /clear service
              clear_service = rospy.ServiceProxy('/clear', Empty) 
              
+             # Montar o comando a ser executado
+             command = f'rosparam set /turtlesim/background_r 200 && rosservice call /clear'
+
+             # Executar o comando de forma não bloqueante
+             subprocess.Popen(command, shell=True)
              
              print( "**** CRITICAL *****")
        else:
