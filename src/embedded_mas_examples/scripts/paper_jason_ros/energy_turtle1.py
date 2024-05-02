@@ -54,8 +54,12 @@ def consume_energy(req):
           # 5% of chance to move from safe to critical
           if move_to_critical <= 4: 
              alarm=1
+             command = f'rostopic pub turtle1/alarm std_msgs/String critical'
+             subprocess.Popen(command, shell=True)
           elif move_to_critical <= 9:
              alarm=2
+             command = f'rostopic pub turtle2/alarm std_msgs/String critical'
+             subprocess.Popen(command, shell=True)
           if alarm > 0:
              # Set the /turtlesim/background_r parameter to 200
              rospy.set_param('/turtlesim/background_r', 255)
@@ -69,14 +73,14 @@ def consume_energy(req):
              # Executar o comando de forma não bloqueante
              subprocess.Popen(command, shell=True)
              
-             print( "**** CRITICAL *****")
+             print( "**** Critical alarm level *****")
        else:
           move_to_safe = random.uniform(0, 100)
           if move_to_safe <= 20: # 20% of chance to move from critical to safe
              alarm = 0
-             command = f'rosparam set /turtlesim/background_r 69 && rosparam set /turtlesim/background_g 86 &&  rosparam set /turtlesim/background_b 255 && rosservice call /clear'
+             command = f'rosparam set /turtlesim/background_r 69 && rosparam set /turtlesim/background_g 86 &&  rosparam set /turtlesim/background_b 255 && rosservice call /clear && rostopic pub turtle1/alarm std_msgs/String safe && rostopic pub turtle2/alarm std_msgs/String safe'
              subprocess.Popen(command, shell=True)
-             print( "**** SAFE *****")
+             print( "**** Safe alarm level *****")
           
           
        
