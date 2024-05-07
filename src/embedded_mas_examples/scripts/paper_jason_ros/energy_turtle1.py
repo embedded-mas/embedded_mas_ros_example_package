@@ -21,6 +21,9 @@ time_to_wait_max = 5
 energy_decrement_max = 5
 alarm = 0;
 
+pen_turtle1 = [255,255,255,12, 0]
+
+
 def consume_energy(req):
     global energy
     global time_to_wait_min
@@ -29,6 +32,7 @@ def consume_energy(req):
     global energy_turtle1
     global energy_turtle2
     global alarm
+    global pen_turtle1
     
     # Cria o tópico para publicar mensagens de tipo Int32
     publisher1 = rospy.Publisher('/turtle1/energy', Int32, queue_size=10)
@@ -40,6 +44,13 @@ def consume_energy(req):
           print("Current energy 1: ", energy1)
        
           publisher1.publish(energy1)
+          
+          if(energy1>=65):
+             pen_turtle1[2] = int((energy1-65)*255/35)
+             
+          command = f'rosservice call /turtle1/set_pen '+ pen_turtle1[0] +' ' + pen_turtle1[1] + ' ' + pen_turtle1[2] + ' ' + pen_turtle1[3] +' 0'
+          subprocess.Popen(command, shell=True)   
+          
           
        if(energy_turtle2>0):
           energy2 = int(energy_turtle2 - random.uniform(1,energy_decrement_max))
