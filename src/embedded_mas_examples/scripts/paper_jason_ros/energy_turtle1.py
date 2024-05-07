@@ -48,7 +48,7 @@ def consume_energy(req):
           if(energy1>=65):
              pen_turtle1[2] = int((energy1-65)*255/35)
              
-          command = f'rosservice call /turtle1/set_pen '+ pen_turtle1[0] +' ' + pen_turtle1[1] + ' ' + pen_turtle1[2] + ' ' + pen_turtle1[3] +' 0'
+          command = f'rosservice call /turtle1/set_pen '+ str(pen_turtle1[0]) +' ' + str(pen_turtle1[1]) + ' ' + str(pen_turtle1[2]) + ' ' + str(pen_turtle1[3]) +' 0'
           subprocess.Popen(command, shell=True)   
           
           
