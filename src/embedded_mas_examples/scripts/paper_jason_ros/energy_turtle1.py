@@ -22,7 +22,7 @@ energy_decrement_max = 5
 alarm = 0;
 
 pen_turtle1 = [255,255,255,12, 0]
-
+pen_turtle2 = [255,255,255,12, 0]
 
 def consume_energy(req):
     global energy
@@ -33,6 +33,7 @@ def consume_energy(req):
     global energy_turtle2
     global alarm
     global pen_turtle1
+    global pen_turtle2
     
     # Cria o tópico para publicar mensagens de tipo Int32
     publisher1 = rospy.Publisher('/turtle1/energy', Int32, queue_size=10)
@@ -57,6 +58,12 @@ def consume_energy(req):
           print("Current energy 2: ", energy2)
        
           publisher2.publish(energy2)   
+          
+          if(energy2>=65):
+             pen_turtle2[2] = int((energy2-65)*255/35)
+             
+          command = f'rosservice call /turtle2/set_pen '+ str(pen_turtle2[0]) +' ' + str(pen_turtle2[1]) + ' ' + str(pen_turtle2[2]) + ' ' + str(pen_turtle2[3]) +' 0'
+          subprocess.Popen(command, shell=True)   
        
        
        
