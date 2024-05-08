@@ -47,7 +47,7 @@ def consume_energy(req):
           publisher1.publish(energy1)
           
           if(energy1>=65):
-             pen_turtle1[2] = int((energy1-65)*255/35)
+             pen_turtle1[2] = int((energy1-35)*255/65)
              
           command = f'rosservice call /turtle1/set_pen '+ str(pen_turtle1[0]) +' ' + str(pen_turtle1[1]) + ' ' + str(pen_turtle1[2]) + ' ' + str(pen_turtle1[3]) +' 0'
           subprocess.Popen(command, shell=True)   
