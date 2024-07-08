@@ -3,7 +3,7 @@
 import random
 import time
 import subprocess
-from std_srvs.srv import Empty, EmptyResponse
+from std_srvs.srv import Empty
 from std_msgs.msg import Int32
 import rclpy
 from rclpy.node import Node
@@ -44,7 +44,7 @@ class TurtleSimNode(Node):
 
     def consume_energy(self, request, response):
         self.get_logger().info('Iniciando consumo de energia...')
-        return EmptyResponse()
+        return Empty.Response()
 
     def timer_callback(self):
         global alarm
