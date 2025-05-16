@@ -29,7 +29,7 @@ class ValueWriter(Node):
         msg.data = new_value
         self.publisher.publish(msg)
 
-        self.get_logger().info(f'Published: {new_value}')
+        #self.get_logger().info(f'Published: {new_value}')
 
         # Atualiza estado
         self.last_value = new_value
