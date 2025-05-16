@@ -23,6 +23,7 @@ class ValueLogger(Node):
         self.csv_file = open('value_log.csv', mode='a', newline='')
         self.csv_writer = csv.writer(self.csv_file)
         self.csv_writer.writerow(['Time', 'Value'])  # Header
+        self.csv_file.flush() 
 
     def listener_callback(self, msg):
         novo_valor = msg.data
@@ -30,7 +31,8 @@ class ValueLogger(Node):
             self.last_value = novo_valor
             timestamp = datetime.now().isoformat(sep=' ', timespec='seconds')
             self.csv_writer.writerow([timestamp, novo_valor])
-            #self.get_logger().info(f'Valor alterado: {novo_valor} registrado em {timestamp}')
+            self.csv_file.flush() 
+            self.get_logger().info(f'Valor alterado: {novo_valor} registrado em {timestamp}')
 
     def destroy_node(self):
         self.csv_file.close()
