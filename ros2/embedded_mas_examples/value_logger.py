@@ -30,7 +30,7 @@ class ValueLogger(Node):
             self.last_value = novo_valor
             timestamp = datetime.now().isoformat(sep=' ', timespec='seconds')
             self.csv_writer.writerow([timestamp, novo_valor])
-            self.get_logger().info(f'Valor alterado: {novo_valor} registrado em {timestamp}')
+            #self.get_logger().info(f'Valor alterado: {novo_valor} registrado em {timestamp}')
 
     def destroy_node(self):
         self.csv_file.close()
