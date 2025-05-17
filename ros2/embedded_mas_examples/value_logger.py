@@ -29,7 +29,7 @@ class ValueLogger(Node):
         novo_valor = msg.data
         if novo_valor != self.last_value:
             self.last_value = novo_valor
-            timestamp = datetime.now().isoformat(sep=' ', timespec='seconds')
+            timestamp = datetime.now().isoformat(sep=' ', timespec='microseconds')
             self.csv_writer.writerow([timestamp, novo_valor])
             self.csv_file.flush() 
             self.get_logger().info(f'Valor alterado: {novo_valor} registrado em {timestamp}')
