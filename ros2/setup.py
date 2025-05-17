@@ -22,7 +22,7 @@ setup(
         'console_scripts': [
            'time_listener = embedded_mas_examples.time_listener:main',
            'value_logger = embedded_mas_examples.value_logger:main',
-           'value_logger = embedded_mas_examples.value_writer:main'
+           'value_writer = embedded_mas_examples.value_writer:main'
         ],
     },
 )
