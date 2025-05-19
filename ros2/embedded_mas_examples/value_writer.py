@@ -26,12 +26,12 @@ class ValueWriter(Node):
             rclpy.shutdown()
     
         # Define novo valor com base no último valor recebido
-        #if self.last_received_value is None:
-        #    new_value = 0  # Valor inicial
-        #else:
-        #    new_value = self.last_received_value + 1
+        if self.last_received_value is None:
+            new_value = 0  # Valor inicial
+        else:
+            new_value = self.last_received_value + 1
         
-        new_value = self.last_received_value + 1
+        #new_value = self.last_received_value + 1
 
         # Publica
         msg = Int32()
