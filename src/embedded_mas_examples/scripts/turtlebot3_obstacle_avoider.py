@@ -33,6 +33,14 @@ class ObstacleAvoider:
         # Caso obstáculo à frente
         if front < self.obstacle_distance_threshold:
             rospy.loginfo("Obstacle ahead!")
+            self.twist.linear.x = -0.1
+            self.twist.linear.y = 0.0
+            self.twist.linear.z = 0.0
+            self.twist.angular.x = 0.0
+            self.twist.angular.y = 0.0
+            self.twist.angular.z = 0.0
+            self.cmd_vel_pub.publish(self.twist)
+            self.rate.sleep()
             if right > self.obstacle_distance_threshold:
                 rospy.loginfo("Turning right.")
                 self.twist.linear.x = 0.0
