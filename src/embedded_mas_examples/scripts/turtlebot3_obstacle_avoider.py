@@ -1,4 +1,7 @@
 #!/usr/bin/env python3
+
+#chmod +x rosrun your_package_name turtlebot3_obstacle_avoider.py && rosrun your_package_name turtlebot3_obstacle_avoider.py
+
 import rospy
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import LaserScan
@@ -7,56 +10,40 @@ class ObstacleAvoider:
     def __init__(self):
         rospy.init_node('obstacle_avoider', anonymous=True)
 
-        self.cmd_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
+        self.cmd_vel_pub = rospy.Publisher('/cmd_vel', Twist, queue_size=10)
         rospy.Subscriber('/scan', LaserScan, self.laser_callback)
 
-        self.obstacle_detected = False
-        self.turning_right = False
-        self.backing_up = False
-        self.backing_up_steps = 0
+        self.twist = Twist()
+        self.obstacle_distance_threshold = 0.5  # metros
 
-        self.rate = rospy.Rate(10)
-        self.msg = Twist()
+        self.rate = rospy.Rate(10)  # 10 Hz
 
-    def laser_callback(self, scan):
-        front_index = len(scan.ranges) // 2
-        right_index = len(scan.ranges) // 4
+    def laser_callback(self, msg):
+        # A faixa de leitura depende do modelo (180 ou 360 graus). Para TurtleBot3 é 360.
+        front = min(min(msg.ranges[0:10] + msg.ranges[-10:]), 10.0)  # frente central
+        right = min(min(msg.ranges[270:310]), 10.0)  # lado direito
+        left = min(min(msg.ranges[50:90]), 10.0)     # lado esquerdo
 
-        front_range = scan.ranges[front_index]
-        right_range = scan.ranges[right_index]
-
-        if front_range < 0.4:
-            self.obstacle_detected = True
-            if front_range < 0.2:
-                self.backing_up = True
-                self.backing_up_steps = 5
-            else:
-                self.turning_right = True
+        if front < self.obstacle_distance_threshold:
+            rospy.loginfo("Obstacle detected! Turning right.")
+            # recuar levemente e virar para a direita
+            self.twist.linear.x = -0.1
+            self.twist.angular.z = -0.8
         else:
-            self.obstacle_detected = False
-            self.turning_right = False
-            self.backing_up = False
+            # movimento normal para frente
+            self.twist.linear.x = 0.2
+            self.twist.angular.z = 0.0
 
-    def move(self):
+        self.cmd_vel_pub.publish(self.twist)
+
+    def run(self):
         while not rospy.is_shutdown():
-            if self.backing_up and self.backing_up_steps > 0:
-                self.msg.linear.x = -0.1
-                self.msg.angular.z = 0.0
-                self.backing_up_steps -= 1
-            elif self.turning_right:
-                self.msg.linear.x = 0.0
-                self.msg.angular.z = -0.5
-            else:
-                self.msg.linear.x = 0.2
-                self.msg.angular.z = 0.0
-
-            self.cmd_pub.publish(self.msg)
             self.rate.sleep()
 
 if __name__ == '__main__':
     try:
-        controller = ObstacleAvoider()
-        controller.move()
+        node = ObstacleAvoider()
+        node.run()
     except rospy.ROSInterruptException:
         pass
 
