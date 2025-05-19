@@ -15,7 +15,7 @@ class ObstacleAvoider:
         rospy.Subscriber('/scan', LaserScan, self.laser_callback)
 
         self.twist = Twist()
-        self.obstacle_distance_threshold = 0.5  # obstáculo à frente
+        self.obstacle_distance_threshold = 0.1  # obstáculo à frente
         self.side_distance_threshold = 0.2      # obstáculo nas laterais
 
         self.rate = rospy.Rate(10)
@@ -41,7 +41,7 @@ class ObstacleAvoider:
             self.twist.angular.z = 0.0
             self.cmd_vel_pub.publish(self.twist)
             self.rate.sleep()
-            if right > self.obstacle_distance_threshold:
+            if right > self.side_distance_threshold:
                 rospy.loginfo("Turning right.")
                 self.twist.linear.x = 0.0
                 self.twist.angular.z = -0.8
