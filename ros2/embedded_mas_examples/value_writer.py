@@ -20,24 +20,32 @@ class ValueWriter(Node):
     def listener_callback(self, msg):
         self.last_received_value = msg.data
 
-    def publish_value(self):
+    def publish_value(self):        
+        if self.counter >= self.max_messages:
+            self.get_logger().info('Finished publishing. Shutting down...')
+            rclpy.shutdown()
+    
         # Define novo valor com base no último valor recebido
-        if self.last_received_value is None:
-            new_value = 0  # Valor inicial
-        else:
-            new_value = self.last_received_value + 1
+        #if self.last_received_value is None:
+        #    new_value = 0  # Valor inicial
+        #else:
+        #    new_value = self.last_received_value + 1
+        
+        new_value = self.last_received_value + 1
 
         # Publica
         msg = Int32()
         msg.data = new_value
         self.publisher.publish(msg)
+        
+        self.counter += 1
 
         #self.get_logger().info(f'Published: {new_value}')
 
-        self.counter += 1
-        if self.counter >= self.max_messages:
-            self.get_logger().info('Finished publishing. Shutting down...')
-            rclpy.shutdown()
+        #self.counter += 1
+        #if self.counter >= self.max_messages:
+        #    self.get_logger().info('Finished publishing. Shutting down...')
+        #    rclpy.shutdown()
 
 def main(args=None):
     rclpy.init(args=args)
