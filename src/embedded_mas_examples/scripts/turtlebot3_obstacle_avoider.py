@@ -5,6 +5,7 @@
 import rospy
 from geometry_msgs.msg import Twist
 from sensor_msgs.msg import LaserScan
+import math
 
 class ObstacleAvoider:
     def __init__(self):
@@ -14,23 +15,46 @@ class ObstacleAvoider:
         rospy.Subscriber('/scan', LaserScan, self.laser_callback)
 
         self.twist = Twist()
-        self.obstacle_distance_threshold = 0.5  # metros
+        self.obstacle_distance_threshold = 0.5  # obstáculo à frente
+        self.side_distance_threshold = 0.2      # obstáculo nas laterais
 
-        self.rate = rospy.Rate(10)  # 10 Hz
+        self.rate = rospy.Rate(10)
 
     def laser_callback(self, msg):
-        # A faixa de leitura depende do modelo (180 ou 360 graus). Para TurtleBot3 é 360.
-        front = min(min(msg.ranges[0:10] + msg.ranges[-10:]), 10.0)  # frente central
-        right = min(min(msg.ranges[270:310]), 10.0)  # lado direito
-        left = min(min(msg.ranges[50:90]), 10.0)     # lado esquerdo
+        front = msg.ranges[0]
+        right = msg.ranges[40]
+        left = msg.ranges[300]
 
+        # Corrige leituras inválidas
+        front = front if math.isfinite(front) else 10.0
+        right = right if math.isfinite(right) else 10.0
+        left = left if math.isfinite(left) else 10.0
+
+        # Caso obstáculo à frente
         if front < self.obstacle_distance_threshold:
-            rospy.loginfo("Obstacle detected! Turning right.")
-            # recuar levemente e virar para a direita
-            self.twist.linear.x = -0.1
-            self.twist.angular.z = -0.8
+            rospy.loginfo("Obstacle ahead!")
+            if right > self.obstacle_distance_threshold:
+                rospy.loginfo("Turning right.")
+                self.twist.linear.x = 0.0
+                self.twist.angular.z = -0.8
+            else:
+                rospy.loginfo("Turning left.")
+                self.twist.linear.x = 0.0
+                self.twist.angular.z = 0.8
+
+        # Caso obstáculo muito próximo nas laterais
+        elif right < self.side_distance_threshold:
+            rospy.loginfo("Too close on the right. Adjusting left.")
+            self.twist.linear.x = 0.1
+            self.twist.angular.z = 0.3  # vira levemente à esquerda
+
+        elif left < self.side_distance_threshold:
+            rospy.loginfo("Too close on the left. Adjusting right.")
+            self.twist.linear.x = 0.1
+            self.twist.angular.z = -0.3  # vira levemente à direita
+
+        # Caminho livre
         else:
-            # movimento normal para frente
             self.twist.linear.x = 0.2
             self.twist.angular.z = 0.0
 
@@ -42,8 +66,7 @@ class ObstacleAvoider:
 
 if __name__ == '__main__':
     try:
-        node = ObstacleAvoider()
-        node.run()
+        ObstacleAvoider().run()
     except rospy.ROSInterruptException:
         pass
 
