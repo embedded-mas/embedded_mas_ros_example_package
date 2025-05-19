@@ -15,7 +15,7 @@ class ObstacleAvoider:
         rospy.Subscriber('/scan', LaserScan, self.laser_callback)
 
         self.twist = Twist()
-        self.obstacle_distance_threshold = 0.1  # obstáculo à frente
+        self.obstacle_distance_threshold = 1.0  # obstáculo à frente
         self.side_distance_threshold = 0.2      # obstáculo nas laterais
 
         self.rate = rospy.Rate(10)
