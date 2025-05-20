@@ -43,23 +43,47 @@ class ObstacleAvoider:
             self.rate.sleep()
             if right > self.side_distance_threshold:
                 rospy.loginfo("Turning right.")
+                #self.twist.linear.x = 0.0
+                #self.twist.angular.z = -0.8
                 self.twist.linear.x = 0.0
-                self.twist.angular.z = -0.8
+                self.twist.linear.y = 0.0
+                self.twist.linear.z = 0.0
+                self.twist.angular.x = 0.0
+                self.twist.angular.y = 0.0
+                self.twist.angular.z = -0.2
             else:
                 rospy.loginfo("Turning left.")
+                #self.twist.linear.x = 0.0
+                #self.twist.angular.z = 0.8
                 self.twist.linear.x = 0.0
-                self.twist.angular.z = 0.8
+                self.twist.linear.y = 0.0
+                self.twist.linear.z = 0.0
+                self.twist.angular.x = 0.0
+                self.twist.angular.y = 0.0
+                self.twist.angular.z = 0.2
 
         # Caso obstáculo muito próximo nas laterais
         elif right < self.side_distance_threshold:
             rospy.loginfo("Too close on the right. Adjusting left.")
-            self.twist.linear.x = 0.1
-            self.twist.angular.z = 0.3  # vira levemente à esquerda
+            #self.twist.linear.x = 0.1
+            #self.twist.angular.z = 0.3  # vira levemente à esquerda
+            self.twist.linear.x = 0.0
+            self.twist.linear.y = 0.0
+            self.twist.linear.z = 0.0
+            self.twist.angular.x = 0.0
+            self.twist.angular.y = 0.0
+            self.twist.angular.z = 0.2
 
         elif left < self.side_distance_threshold:
             rospy.loginfo("Too close on the left. Adjusting right.")
-            self.twist.linear.x = 0.1
-            self.twist.angular.z = -0.3  # vira levemente à direita
+            #self.twist.linear.x = 0.1
+            #self.twist.angular.z = -0.3  # vira levemente à direita
+            self.twist.linear.x = 0.0
+            self.twist.linear.y = 0.0
+            self.twist.linear.z = 0.0
+            self.twist.angular.x = 0.0
+            self.twist.angular.y = 0.0
+            self.twist.angular.z = -0.2
 
         # Caminho livre
         else:
