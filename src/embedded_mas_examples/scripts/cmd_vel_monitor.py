@@ -1,11 +1,10 @@
+#!/usr/bin/env python3
+
 '''
 This program logs timestamp and the incremental counter of every writing in the topic /cmd_vel.
 It is useful to evaluate the performance of programs that write in this topic.
 
 '''
-
-
-#!/usr/bin/env python3
 
 import rospy
 from geometry_msgs.msg import Twist
@@ -14,7 +13,7 @@ from datetime import datetime
 class CmdVelLogger:
     def __init__(self):
         self.counter = 0
-        self.log_file = open("/tmp/cmd_vel_log.txt", "a")  # ou defina outro caminho
+        self.log_file = open("cmd_vel_log.txt", "a")  
 
         rospy.Subscriber("/cmd_vel", Twist, self.callback)
         rospy.loginfo("Monitorando /cmd_vel...")
