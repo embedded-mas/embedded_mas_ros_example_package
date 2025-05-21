@@ -19,8 +19,16 @@ class ObstacleAvoider:
         self.side_distance_threshold = 0.2      # obstáculo nas laterais
 
         self.rate = rospy.Rate(10)
-
+        
+        self.max_writings = -1 #set this value to some x > 0 to finish the simulation after x writings
+        self.writings = 0
+        
     def laser_callback(self, msg):
+        if self.max_writings>-1 & self.writings>=self.max_writings:
+            rospy.loginfo("Finishing turtlesim simulation as it achieves " + str(self.writings) + " topic writings.")
+            rospy.signal_shutdown("Stop condition reached")
+            break                      
+    
         front = msg.ranges[0]
         right = msg.ranges[40]
         left = msg.ranges[300]
@@ -40,6 +48,7 @@ class ObstacleAvoider:
             self.twist.angular.y = 0.0
             self.twist.angular.z = 0.0
             self.cmd_vel_pub.publish(self.twist)
+            self.writings+=1
             self.rate.sleep()
             if right > self.side_distance_threshold:
                 rospy.loginfo("Turning right.")
@@ -91,7 +100,8 @@ class ObstacleAvoider:
             self.twist.angular.z = 0.0
 
         self.cmd_vel_pub.publish(self.twist)
-
+        self.writings+=1
+           
     def run(self):
         while not rospy.is_shutdown():
             self.rate.sleep()
