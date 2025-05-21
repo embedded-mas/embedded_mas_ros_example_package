@@ -14,6 +14,8 @@ class CmdVelLogger:
     def __init__(self):
         self.counter = 0
         self.log_file = open("cmd_vel_log.txt", "a")  
+	self.log_file.write("id;time;linear.x;linear.y;linear.z;angular.x;angular.y;angular.z")
+	self.log_file.flush()
 
         rospy.Subscriber("/cmd_vel", Twist, self.callback)
         rospy.loginfo("Monitorando /cmd_vel...")
@@ -22,8 +24,8 @@ class CmdVelLogger:
         self.counter += 1
         now = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
         log_entry = (
-            f"[{self.counter}] {now} | linear: ({msg.linear.x:.2f}, {msg.linear.y:.2f}, {msg.linear.z:.2f}) "
-            f"angular: ({msg.angular.x:.2f}, {msg.angular.y:.2f}, {msg.angular.z:.2f})\n"
+            f"{self.counter};{now};{msg.linear.x:.2f},{msg.linear.y:.2f},{msg.linear.z:.2f};"
+            f"{msg.angular.x:.2f},{msg.angular.y:.2f},{msg.angular.z:.2f}\n"
         )
         self.log_file.write(log_entry)
         self.log_file.flush()  # garante que o log seja gravado imediatamente
