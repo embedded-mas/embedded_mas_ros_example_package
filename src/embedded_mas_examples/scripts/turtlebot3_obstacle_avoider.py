@@ -24,11 +24,10 @@ class ObstacleAvoider:
         self.writings = 0
         
     def laser_callback(self, msg):
-        if self.max_writings>-1 & self.writings>=self.max_writings:
+        if self.max_writings>-1 and self.writings>=self.max_writings:
             rospy.loginfo("Finishing turtlesim simulation as it achieves " + str(self.writings) + " topic writings.")
             rospy.signal_shutdown("Stop condition reached")
-            break                      
-    
+     
         front = msg.ranges[0]
         right = msg.ranges[40]
         left = msg.ranges[300]
