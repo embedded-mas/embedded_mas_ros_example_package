@@ -139,6 +139,7 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/embedded_mas_examples_node.cpp)
+add_executable(random_turtlebot3_publisher_with_perception_c src/random_turtlebot3_publisher_with_perception_c.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -152,8 +153,9 @@ include_directories(
 
 ## Specify libraries to link a library or executable target against
 # target_link_libraries(${PROJECT_NAME}_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(random_turtlebot3_publisher_with_perception_c
+   ${catkin_LIBRARIES}
+ )
 
 #############
 ## Install ##
@@ -165,7 +167,7 @@ include_directories(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
  catkin_install_python(PROGRAMS
-   scripts/sum_array_client.py  scripts/sum_array_server.py scripts/time_listener.py scripts/sum_nested_params_server.py scripts/paper_jason_ros/energy_turtle1.py scripts/paper_jason_ros/energy_turtle2.py
+   scripts/sum_array_client.py  scripts/sum_array_server.py scripts/time_listener.py scripts/sum_nested_params_server.py scripts/paper_jason_ros/energy_turtle1.py #scripts/paper_jason_ros/energy_turtle2.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 
