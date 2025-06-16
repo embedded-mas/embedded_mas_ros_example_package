@@ -13,7 +13,7 @@ from datetime import datetime
 class CmdVelLogger:
     def __init__(self):
         self.counter = 0
-        self.log_file = open("cmd_vel_log.txt", "a")  
+        self.log_file = open("cmd_vel_log.csv", "a")  
         self.log_file.write("id;time;linear.x;linear.y;linear.z;angular.x;angular.y;angular.z")
         self.log_file.flush()
 
