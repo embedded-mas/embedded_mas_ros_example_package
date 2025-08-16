@@ -54,6 +54,8 @@ add_message_files(
 #   Message2.msg
    Point3d.msg
    PairOfPoint3d.msg
+   ExampleArray.msg  
+   ExampleMsgWithArray.msg
  )
 
 ## Generate services in the 'srv' folder
