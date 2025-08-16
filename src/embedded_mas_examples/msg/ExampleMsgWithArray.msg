@@ -1,3 +1,3 @@
 int32 x
-YElement[] y
+embedded_mas_examples/ExampleArray[] y
 int32 z
