@@ -14,12 +14,12 @@ class ValueWriterService(Node):
         self.publisher = self.create_publisher(Int32, '/value1', 10)
 
         # Serviço do tipo Trigger
-        self.srv = self.create_service(Trigger, 'write_value', self.handle_write_value)
+        self.srv = self.create_service(Trigger, 'write_value_with_delay', self.handle_write_value)
 
         # Último valor publicado
         self.last_value = 0
 
-        self.get_logger().info('ValueWriterService is ready. Call service "write_value".')
+        self.get_logger().info('ValueWriterService is ready. Call service "write_value_with_delay".')
 
     def handle_write_value(self, request, response):
         """Callback do serviço."""
