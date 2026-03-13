@@ -8,11 +8,23 @@ publisher = None
 
 def handle_publish(req):
     global publisher
-    publisher.publish(req.msg)
+
+    msg = ExampleMsgWithArray()
+
+    msg.x = req.x
+    msg.y = req.y
+    msg.z = req.z
+    msg.w = req.w
+
+    publisher.publish(msg)
+
     rospy.loginfo("Message published to /array_topic")
+
     return PublishMsgWithArrayResponse(True)
 
+
 def main():
+
     global publisher
 
     rospy.init_node("example_service_publisher")
@@ -32,6 +44,7 @@ def main():
     rospy.loginfo("Service publish_example_msg ready")
 
     rospy.spin()
+
 
 if __name__ == "__main__":
     main()
