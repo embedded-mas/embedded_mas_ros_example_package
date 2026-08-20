@@ -66,6 +66,7 @@ add_message_files(
    SumArray.srv
    NestedSum.srv
    GetRobotPose.srv
+   MoveRobot.srv
  )
 
 ## Generate actions in the 'action' folder
@@ -172,7 +173,7 @@ target_link_libraries(random_turtlebot3_publisher_with_perception_c
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
  catkin_install_python(PROGRAMS
-   scripts/sum_array_client.py  scripts/sum_array_server.py scripts/time_listener.py scripts/sum_nested_params_server.py scripts/paper_jason_ros/energy_turtle1.py scripts/cmd_vel_monitor.py scripts/random_turtlebot3_publisher_with_perception.py scripts/get_robot_pose.py  #scripts/paper_jason_ros/energy_turtle2.py
+   scripts/sum_array_client.py  scripts/sum_array_server.py scripts/time_listener.py scripts/sum_nested_params_server.py scripts/paper_jason_ros/energy_turtle1.py scripts/cmd_vel_monitor.py scripts/random_turtlebot3_publisher_with_perception.py scripts/get_robot_pose.py scripts/move_robot.py #scripts/paper_jason_ros/energy_turtle2.py
    DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
  )
 
